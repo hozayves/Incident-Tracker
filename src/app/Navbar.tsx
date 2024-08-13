@@ -11,7 +11,7 @@ export default function Navbar() {
     ]
     return (
         <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
-            <Link href="/"><IoBugSharp /></Link>
+            <Link href="/" legacyBehavior><IoBugSharp /></Link>
             <ul className="flex space-x-6">
                 {links.map(link =>
                     <Link
@@ -21,9 +21,10 @@ export default function Navbar() {
                             'text-zinc-500': link.href !== currentPath,
                             'hover:text-zinc-800 transition-colors': true
                         })}
-                        href={link.href}>{link.label}</Link>)}
+                        href={link.href}
+                        legacyBehavior>{link.label}</Link>)}
 
             </ul>
         </nav>
-    )
+    );
 }

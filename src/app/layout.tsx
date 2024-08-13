@@ -4,7 +4,7 @@ import '@radix-ui/themes/styles.css';
 import './theme-config.css'
 import "./globals.css";
 import Navbar from "./Navbar";
-import { Theme } from '@radix-ui/themes'
+import { Theme, ThemePanel } from '@radix-ui/themes'
 
 const inter = Inter(
   {
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <Theme accentColor="yellow" grayColor="sand" radius="full" scaling="110%">
+        <Theme grayColor="sand" radius="large" scaling="110%">
           <Navbar />
           <main className="p-5">{children}</main>
         </Theme>
