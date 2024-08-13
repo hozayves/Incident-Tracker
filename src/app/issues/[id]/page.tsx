@@ -3,6 +3,7 @@ import prisma from "../../../../prisma/client"
 import { Card, Flex, Heading, Text } from "@radix-ui/themes"
 import IssueStatusBadge from "@/components/IssueStatusBadge"
 import Markdown from "react-markdown"
+import delay from "delay"
 
 export default async function IssueDetailPage({ params: { id } }: { params: { id: string } }) {
     const issue = await prisma.issue.findUnique({
@@ -12,6 +13,8 @@ export default async function IssueDetailPage({ params: { id } }: { params: { id
     })
     if (!issue)
         notFound()
+
+    await delay(2000)
     return (
         <div>
             <Heading>{issue.title}</Heading>
