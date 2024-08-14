@@ -23,8 +23,6 @@ type IssueFormData = z.infer<typeof createIssueSchema>
 
 
 export default function IssueForm({ issue }: { issue?: Issue }) {
-    const [title, setTitle] = useState(issue?.title)
-    console.log(issue)
     const router = useRouter()
     const { register, control, handleSubmit, formState: { errors } } = useForm<IssueFormData>({
         resolver: zodResolver(createIssueSchema)
@@ -35,7 +33,10 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
     const onSubmit = handleSubmit(async (data) => {
         try {
             setIsSubmiting(true)
-            await axios.post('/api/issues', data)
+            if (issue)
+                await axios.patch('/api/issues/' + issue.id, data)
+            else
+                await axios.post('/api/issues', data)
             router.push("/issues")
         } catch (error) {
             setIsSubmiting(false)
@@ -53,7 +54,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
                 <TextField.Root
                     placeholder="Title"
                     {...register('title')}
-                    defaultValue={title}
+                    defaultValue={issue?.title}
                 />
                 <ErrorMessage>
                     {errors.title?.message}
@@ -67,7 +68,10 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
                 <ErrorMessage>
                     {errors.description?.message}
                 </ErrorMessage>
-                <Button disabled={isSubmiting}>Submit New Issues {isSubmiting && <Spinner />} </Button>
+                <Button disabled={isSubmiting}>
+                    {issue ? 'Update Issue' : "Submit New Issues"}{" "}
+                    {isSubmiting && <Spinner />}
+                </Button>
             </form>
         </div>
     )
