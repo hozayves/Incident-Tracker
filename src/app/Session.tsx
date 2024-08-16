@@ -8,7 +8,7 @@ async function Session() {
     return (
         <Box>
             {!session &&
-                <Link href="/api/auth/signin">LogIn</Link>
+                <Link className="nav-link" href="/api/auth/signin">LogIn</Link>
             }
             {session &&
                 (

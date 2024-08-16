@@ -17,17 +17,19 @@ function LeftNavbar() {
             <Link href="/" legacyBehavior><IoBugSharp /></Link>
             <ul className="flex space-x-6">
                 {links.map(link =>
-                    <li key={link.href}>
-                        <Link
-                            className={classNames({
-                                'text-zinc-900': link.href === currentPath,
-                                'text-zinc-500': link.href !== currentPath,
-                                'hover:text-zinc-800 transition-colors': true
-                            })}
-                            href={link.href}
-                            legacyBehavior>{link.label}</Link>
+                    <>
+                        {console.log(link.href)}
+                        <li key={link.href}>
+                            <Link
+                                className={classNames({
+                                    'nav-link': true,
+                                    'text-zinc-900': link.href === currentPath,
+                                })}
+                                href={link.href}
+                                legacyBehavior>{link.label}</Link>
 
-                    </li>
+                        </li>
+                    </>
                 )}
 
             </ul>
