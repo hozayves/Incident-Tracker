@@ -1,12 +1,12 @@
+import { auth } from "@/auth"
 import { Box, Flex, Grid } from "@radix-ui/themes"
 import delay from "delay"
 import { notFound } from "next/navigation"
 import prisma from "../../../../prisma/client"
+import AssigneeSelect from "./AssigneeSelect"
+import DeleteIssueButton from "./DeleteIssueButton"
 import EditIssueButton from "./EditIssueButton"
 import IssueDetails from "./IssueDetails"
-import DeleteIssueButton from "./DeleteIssueButton"
-import { auth } from "@/auth"
-import AssigneeSelect from "./AssigneeSelect"
 
 export default async function IssueDetailPage({ params: { id } }: { params: { id: string } }) {
     const session = await auth()
