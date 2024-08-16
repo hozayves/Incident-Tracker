@@ -6,6 +6,7 @@ import EditIssueButton from "./EditIssueButton"
 import IssueDetails from "./IssueDetails"
 import DeleteIssueButton from "./DeleteIssueButton"
 import { auth } from "@/auth"
+import AssigneeSelect from "./AssigneeSelect"
 
 export default async function IssueDetailPage({ params: { id } }: { params: { id: string } }) {
     const session = await auth()
@@ -25,6 +26,7 @@ export default async function IssueDetailPage({ params: { id } }: { params: { id
             </Box>
             {session && <Box>
                 <Flex direction="column" gap="3">
+                    <AssigneeSelect />
                     <EditIssueButton issueId={issue.id} />
                     <DeleteIssueButton issueId={issue.id} />
 
