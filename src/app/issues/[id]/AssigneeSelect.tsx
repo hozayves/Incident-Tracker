@@ -1,11 +1,10 @@
 'use client'
+import { Skeleton } from '@/components';
 import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Skeleton } from '@/components'
-import toast, { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function AssigneeSelect({ issue }: { issue: Issue }) {
     const { data: users, error, isFetching, isLoading } = useQuery<User[]>({
@@ -19,16 +18,19 @@ export default function AssigneeSelect({ issue }: { issue: Issue }) {
     if (isLoading) return <Skeleton height="2rem" />
 
     if (error) return null
+
+    const assingIssueTo = (userId: string) => {
+        axios
+            .patch("/api/issues/" + issue.id, { assignedToUserId: userId })
+            .catch(() => { toast.error("Changes could not be saved.") })
+    }
+
     return (
         <>
             <Toaster position="bottom-right" />
             <Select.Root
                 defaultValue={issue.assignedToUserId || ""}
-                onValueChange={(userId) => {
-                    axios
-                        .patch("/api/issues/" + issue.id, { assignedToUserId: userId })
-                        .catch(() => { toast.error("Changes could not be saved.") })
-                }}>
+                onValueChange={assingIssueTo}>
                 <Select.Trigger placeholder="Assign..." />
                 <Select.Content >
                     <Select.Group>
